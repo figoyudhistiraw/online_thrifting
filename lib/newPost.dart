@@ -148,7 +148,6 @@ class NewPostWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Text("Logout")
           ],
         ),
       ],

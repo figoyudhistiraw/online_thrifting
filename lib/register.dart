@@ -17,7 +17,7 @@ class RegisterWidget extends StatelessWidget {
                   Container(
                     height: 120,
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         image: AssetImage("images/image1.jpg"),
@@ -31,22 +31,22 @@ class RegisterWidget extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
-                        children: [
+                        children: const [
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2.0),
+                            padding: EdgeInsets.symmetric(vertical: 2.0),
                             child: Text(
                               "Account Name",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 26, color: const Color(0xff03ac0e)),
+                                  fontSize: 26, color: Color(0xff03ac0e)),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2.0),
+                            padding: EdgeInsets.symmetric(vertical: 2.0),
                             child: Text(
                               "View and Edit Profile",
                               style: TextStyle(
-                                  fontSize: 18, color: const Color(0xff03ac0e)),
+                                  fontSize: 18, color: Color(0xff03ac0e)),
                             ),
                           ),
                         ],
@@ -60,9 +60,9 @@ class RegisterWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.all(15),
               height: 48,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(width: 3, color: const Color(0xff03ac0e)),
+                  bottom: BorderSide(width: 1, color: Color(0xff03ac0e)),
                 ),
               ),
               child: Row(
@@ -73,11 +73,11 @@ class RegisterWidget extends StatelessWidget {
                   ),
                   Container(
                     child: Column(
-                      children: [
+                      children: const [
                         Text(
                           "Accounts",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                           ),
                         ),
                         Text("Login or Register")
@@ -94,9 +94,9 @@ class RegisterWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.all(15),
               height: 48,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(width: 1, color: const Color(0xff03ac0e)),
+                  bottom: BorderSide(width: 1, color: Color(0xff03ac0e)),
                 ),
               ),
               child: Row(
@@ -107,11 +107,11 @@ class RegisterWidget extends StatelessWidget {
                   ),
                   Container(
                     child: Column(
-                      children: [
+                      children: const [
                         Text(
                           "Contact Us",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                           ),
                         ),
                         Text("Call or Message")
