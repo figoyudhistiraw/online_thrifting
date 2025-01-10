@@ -1,4 +1,4 @@
-package com.example.online_thrifting
+package com.indigo.thriftnstash
 
 import io.flutter.embedding.android.FlutterActivity
 

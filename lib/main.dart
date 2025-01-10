@@ -1,73 +1,55 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'register.dart';
-import 'newPost.dart';
-import 'managePost.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:thriftnstash/screens/main_page.dart';
+import 'package:thriftnstash/startingpage/login_page.dart';
+import 'providers/user_provider.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    title: 'Online Thrifting',
-    home: HomePage(),
-  ));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
-int _index = 0;
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeWidget(),
-    NewPostWidget(),
-    ManagePostWidget(),
-    RegisterWidget(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text('Home Page'),
-        backgroundColor: const Color(0xff03ac0e),
-      ),
-      body: Container(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          backgroundColor: const Color(0xff03ac0e),
-          unselectedItemColor: Colors.white70,
-          selectedItemColor: Colors.white,
-          onTap: _onItemTapped,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: "Beranda",
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.arrow_circle_up), label: "Post Iklan"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_outline), label: "My Post"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle), label: "Akun"),
-          ]),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "Thrift & Stash",
+          theme: ThemeData(
+              primaryTextTheme: TextTheme(headlineMedium: TextStyle()),
+              listTileTheme: ListTileThemeData(iconColor: Color(0xFF4CAF50)),
+              colorScheme: ColorScheme.light(
+                primary: const Color(0xFF4CAF50), // 0xFFb68d40
+              ),
+              textTheme: GoogleFonts.robotoTextTheme(
+                Theme.of(context).textTheme,
+              )),
+          home: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                User? user = snapshot.data;
+                if (user == null) {
+                  return LogPage();
+                } else
+                  return MainPage();
+              } else {
+                return Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+            },
+          ),
+        ));
   }
 }

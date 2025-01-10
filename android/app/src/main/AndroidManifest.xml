@@ -1,9 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.online_thrifting">
+    package="com.indigo.thriftnstash">
+    
    <application
-        android:label="online_thrifting"
+        android:label="thriftnstash"
+        android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,4 +34,27 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <queries>
+            <!-- Access  URL-->
+            <intent>
+                <action android:name="android.intent.action.VIEW" />
+                <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+                <data android:scheme="https" />
+            </intent>
+            <!-- Access Phone Calls-->
+            <intent>
+               <action android:name="android.intent.action.DIAL" />
+                <data android:scheme="tel" />
+            </intent>
+                 <!-- Access SMS-->
+            <intent>
+                <action android:name="android.intent.action.SENDTO" />
+                <data android:scheme="smsto" />
+            </intent>
+            <!-- Access Emails-->
+            <intent>
+                <action android:name="android.intent.action.SEND" />
+                <data android:mimeType="*/*" />
+            </intent>
+        </queries>
 </manifest>

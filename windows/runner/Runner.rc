@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "online_thrifting" "\0"
+            VALUE "CompanyName", "com.indigo" "\0"
+            VALUE "FileDescription", "thriftnstash" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "online_thrifting" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "online_thrifting.exe" "\0"
-            VALUE "ProductName", "online_thrifting" "\0"
+            VALUE "InternalName", "thriftnstash" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.indigo. All rights reserved." "\0"
+            VALUE "OriginalFilename", "thriftnstash.exe" "\0"
+            VALUE "ProductName", "thriftnstash" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

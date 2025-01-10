@@ -1,0 +1,198 @@
+import 'dart:io';
+
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:thriftnstash/models/product.dart';
+import 'package:thriftnstash/services/database_service.dart';
+import 'package:thriftnstash/services/utils.dart';
+
+class UpdateProduct extends StatefulWidget {
+  final ProductModels product;
+  const UpdateProduct({super.key, required this.product});
+
+  @override
+  State<UpdateProduct> createState() => _UpdateProductState();
+}
+
+class _UpdateProductState extends State<UpdateProduct> {
+  // TextEditingController titleController = TextEditingController();
+  // TextEditingController descriptionController = TextEditingController();
+  // TextEditingController locationController = TextEditingController();
+  // TextEditingController priceController = TextEditingController();
+  late TextEditingController titleController;
+  late TextEditingController descriptionController;
+  late TextEditingController locationController;
+  late TextEditingController priceController;
+
+  late String title;
+  late String description;
+  late String location;
+  late String price;
+  late File? image;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    titleController = TextEditingController(text: widget.product.title);
+    descriptionController =
+        TextEditingController(text: widget.product.description);
+    locationController = TextEditingController(text: widget.product.location);
+    priceController = TextEditingController(text: widget.product.price);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    titleController.dispose();
+    descriptionController.dispose();
+    locationController.dispose();
+    priceController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // print("JUDUL PRODUK: ${widget.product.title}");
+    return Scaffold(
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 35,
+                ),
+                Center(
+                  child: Text(
+                    "Update your Ad",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: const Color(0xff03ac0e),
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  controller: titleController,
+                  onChanged: (value) {
+                    title = value;
+                  },
+                  maxLength: 50,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25))),
+                ),
+                TextFormField(
+                  controller: descriptionController,
+                  onChanged: (value) {
+                    description = value;
+                  },
+                  minLines: 1,
+                  maxLines: 5,
+                  maxLength: 1000,
+                  decoration: InputDecoration(
+                      label: Text("Description"),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25))),
+                ),
+                TextFormField(
+                  controller: locationController,
+                  onChanged: (value) {
+                    location = value;
+                  },
+                  minLines: 1,
+                  maxLines: 3,
+                  maxLength: 300,
+                  decoration: InputDecoration(
+                      label: Text("Location"),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25))),
+                ),
+                Text("Upload Photos"),
+                SizedBox(
+                  height: 10,
+                ),
+                FilledButton(
+                    style: FilledButton.styleFrom(
+                        minimumSize: Size.fromHeight(40),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25))),
+                    onPressed: () async {
+                      File? temp = await pickImage(ImageSource.gallery);
+                      setState(() {
+                        image = temp;
+                      });
+                    },
+                    child: Icon(Icons.upload)),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    CurrencyTextInputFormatter(
+                      name: 'Rp',
+                      locale: 'id',
+                      decimalDigits: 0,
+                    )
+                  ],
+                  controller: priceController,
+                  onChanged: (value) {
+                    price = value;
+                  },
+                  decoration: InputDecoration(
+                      label: Text("Price"),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25))),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: Size.fromHeight(55),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25))),
+                  onPressed: () {
+                    // Ambil nilai input dari pengguna
+                    String title = titleController.text;
+                    String description = descriptionController.text;
+                    String location = locationController.text;
+                    String price = priceController.text;
+                    File? image = image;
+
+                    // Buat objek ProductModels dengan nilai input dari pengguna
+                    ProductModels updatedProduct = ProductModels(
+                      productID: widget.product
+                          .productID, // Gunakan productID dari widget.product
+                      title: title,
+                      description: description,
+                      location: location,
+                      price: price,
+                      pho
+                      // ...
+                    );
+
+                    // Panggil fungsi updateProduct dengan updatedProduct sebagai argumen
+                    DatabaseService().updateProduct(updatedProduct);
+                    ScaffoldMessenger(
+                      child: SnackBar(content: Text("Product Updated")),
+                    );
+                  },
+                  child: Text("Confirm Update"),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

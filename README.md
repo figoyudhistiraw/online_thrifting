@@ -1,4 +1,4 @@
-# online_thrifting
+# thriftnstash
 
 A new Flutter project.
 

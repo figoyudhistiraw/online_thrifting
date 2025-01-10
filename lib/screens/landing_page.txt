@@ -1,0 +1,48 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import 'package:thriftnstash/providers/user_provider.dart';
+import 'package:thriftnstash/screens/menu/account.dart';
+import 'package:thriftnstash/screens/menu/ads.dart';
+import 'package:thriftnstash/screens/menu/home.dart';
+import 'package:thriftnstash/screens/menu/sell.dart';
+
+class LandingPage extends StatefulWidget {
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  final pages = [
+    HomePage(),
+    SellPage(),
+    AdsPage(),
+    AccountPage(),
+  ];
+  int selectedIndex = 0;
+  void onTap(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.sell), label: "Sell"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_outlined), label: "My Ads"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: "My Account"),
+        ],
+        currentIndex: selectedIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: onTap,
+      ),
+      body: pages.elementAt(selectedIndex),
+    );
+  }
+}

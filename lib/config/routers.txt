@@ -1,0 +1,24 @@
+// import 'package:flutter/material.dart';
+// import 'package:thriftnstash/screens/main_page.dart';
+// import 'package:thriftnstash/screens/menu/account.dart';
+// import 'package:thriftnstash/screens/menu/ads.dart';
+// import 'package:thriftnstash/screens/menu/home.dart';
+// import 'package:thriftnstash/screens/menu/sell.dart';
+
+// class AppRouter {
+//   static Route GenerateRoute(RouteSettings settings) {
+//     print('Route: ${settings.name}');
+//     switch (settings.name) {
+//       case '/':
+//         return MainPage.route();
+//       case HomePage.routeName:
+//         return HomePage.route();
+//       case AdsPage.routeName:
+//         return AdsPage.route();
+//       case AccountPage.routeName:
+//         return AccountPage.route();
+//       case SellPage.routeName:
+//         return SellPage.route();
+//     }
+//   }
+// }
